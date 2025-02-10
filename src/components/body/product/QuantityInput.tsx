@@ -1,6 +1,6 @@
 import {FC} from 'react';
 
-const LateralCart: FC<{}> = ({}) => {
+const QuantityInput: FC<{}> = ({}) => {
     return (
         <>
 
@@ -8,4 +8,4 @@ const LateralCart: FC<{}> = ({}) => {
     );
 };
 
-export default LateralCart;
+export default QuantityInput;
