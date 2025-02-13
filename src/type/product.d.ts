@@ -3,7 +3,7 @@ export interface Product {
     name: string;
     price: number;
     description: string;
-    image: string;
+    posterPath: string;
 }
 export interface ProductCollection{
     products: Product[];
