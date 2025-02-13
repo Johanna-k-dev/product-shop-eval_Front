@@ -1,64 +1,36 @@
-import {FC} from 'react';
-import {Card, CardActionArea, Box, CardContent, Typography} from "@mui/material";
+import React, {FC, useEffect, useState} from 'react';
+import {Product} from '../../../type/product';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import Button from '@mui/material/Button';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import ProductData from '../../../dataFake/product-data.json'
 
-const ProductCard: FC<{}> = ({}) => {
-    const [selectedCard, setSelectedCard] = React.useState(0);
+const ProductCard: FC = () => {
+    const [products, setProducts] = useState<Product[]>([]);
 
-    const cards = [
-        {
-            id: 1,
-            title: 'Plants',
-            description: 'Plants are essential for all life.',
-        },
-        {
-            id: 2,
-            title: 'Animals',
-            description: 'Animals are a part of nature.',
-        },
-        {
-            id: 3,
-            title: 'Humans',
-            description: 'Humans depend on plants and animals for survival.',
-        },
-    ];
+
     return (
-        <>
-            <Box
-                sx={{
-                    width: '100%',
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(min(200px, 100%), 1fr))',
-                    gap: 2,
-                }}
-            >
-                {cards.map((card, index) => (
-                    <Card>
-                        <CardActionArea
-                            onClick={() => setSelectedCard(index)}
-                            data-active={selectedCard === index ? '' : undefined}
-                            sx={{
-                                height: '100%',
-                                '&[data-active]': {
-                                    backgroundColor: 'action.selected',
-                                    '&:hover': {
-                                        backgroundColor: 'action.selectedHover',
-                                    },
-                                },
-                            }}
-                        >
-                            <CardContent sx={{height: '100%'}}>
-                                <Typography variant="h5" component="div">
-                                    {card.title}
-                                </Typography>
-                                <Typography variant="body2" color="text.secondary">
-                                    {card.description}
-                                </Typography>
-                            </CardContent>
-                        </CardActionArea>
-                    </Card>
-                ))}
-            </Box>
-        </>
+        <div style={{display: "flex", flexWrap: "wrap", justifyContent: "center"}}>
+            {products.map((product) => (
+                <Card key={product.id} sx={{maxWidth: 245, m: 2, backgroundColor: 'salmon'}}>
+                    <CardContent>
+                        <Typography variant="h6">{product.name}</Typography>
+                        <img
+                            src={product.image}
+                            alt={product.name}
+                            style={{width: "100%", height: "150px", objectFit: "cover"}}
+                        />
+                        <Typography variant="body1">{product.price} €</Typography>
+                        <Typography variant="body2">{product.description}</Typography>
+                    </CardContent>
+                    <CardActions>
+                        <Button size="small">Learn More</Button>
+                    </CardActions>
+                </Card>
+            ))}
+        </div>
     );
 };
 
