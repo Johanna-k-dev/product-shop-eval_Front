@@ -48,11 +48,13 @@ const ProductDetails: FC = () => {
         if (selectedStock === 0) {
             setAlertMessage("Stock de fou, alors fonce !🚀");
         } else if (selectedStock === initialStock) {
-            setAlertMessage("Le stock est vide ! 😱");
-        } else if (selectedStock <= 3) {
-            setAlertMessage(`Attention, il ne reste que ${selectedStock} article(s) en stock ! 🚨`);
-        } else {
             setAlertMessage("Vous pouvez encore en commander pleins!😃🎉");
+        } else if (selectedStock <= 8) {
+            setAlertMessage(`Attention, il ne reste que ${selectedStock} article(s) en stock ! 🚨`);
+        } else if (selectedStock === 10 ) {
+            setAlertMessage(`Oh non , il ne reste plus d'article(s) en stock !  😱)`);
+        } else {
+            setAlertMessage("Stock OK");
         }
     };
 
