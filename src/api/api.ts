@@ -55,3 +55,6 @@ export const get = (url: string, config: any = {}) => {
 
 // Exemple d'utilisation
 get("/product/all").then((data) => console.log("Produits:", data));
+
+export class getFilteredProducts {
+}
