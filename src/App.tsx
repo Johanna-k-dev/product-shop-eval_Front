@@ -1,11 +1,16 @@
 import React from 'react';
+import {BrowserRouter, Routes} from "react-router";
 import './App.css';
 import LayoutConnected from "./layout/LayoutConnected";
+import Router from "./router/Router";
 
 function App() {
   return (
     <>
-      <LayoutConnected/>
+        <BrowserRouter>
+            <Router/>
+        </BrowserRouter>
+
     </>
   );
 }

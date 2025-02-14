@@ -27,7 +27,7 @@ const AppBarre: FC<{}> = ({}) => {
         palette: {
             mode: 'dark',
             primary: {
-                main: '#1976d2',
+                main: '#00788b',
             },
         },
     });
