@@ -45,16 +45,24 @@ const ProductDetails: FC = () => {
 
     // Fonction pour gérer l'alerte en fonction de la quantité restante
     const generateAlert = (selectedStock: number, initialStock: number) => {
-        if (selectedStock === 0) {
-            setAlertMessage("Stock de fou, alors fonce !🚀");
+        const stockAfterSelect= initialStock - selectedStock;
+        const oneOfInitialStock = initialStock-1;
+        const twoOfInitialStock = initialStock-2;
+        const treeOfInitialStock = twoOfInitialStock - 3;
+
+
+        if (stockAfterSelect === 0) {
+            setAlertMessage(`Nous en avons ${initialStock} en Stock, alors foncez !🚀`);
         } else if (selectedStock === initialStock) {
-            setAlertMessage("Vous pouvez encore en commander pleins!😃🎉");
-        } else if (selectedStock <= 8) {
-            setAlertMessage(`Attention, il ne reste que ${selectedStock} article(s) en stock ! 🚨`);
-        } else if (selectedStock === 10 ) {
-            setAlertMessage(`Oh non , il ne reste plus d'article(s) en stock !  😱)`);
+            setAlertMessage(`Oh non rupture le stock set à ${stockAfterSelect} ,Désolé il ne reste plus d'article(s) en stock ! 😱`);
+        } else if (selectedStock === oneOfInitialStock) {
+            setAlertMessage(`Attention, il ne reste que ${stockAfterSelect} article(s) en stock ! 🚨`);
+        } else if (selectedStock === twoOfInitialStock) {
+            setAlertMessage(`Attention, il ne reste que ${stockAfterSelect} article(s) en stock ! 🚨`);
+        } else if (selectedStock === treeOfInitialStock) {
+            setAlertMessage(`Attention, il ne reste que ${stockAfterSelect} article(s) en stock ! 🚨`);
         } else {
-            setAlertMessage("Stock OK");
+            setAlertMessage(`${stockAfterSelect} articles en stock`);
         }
     };
 
