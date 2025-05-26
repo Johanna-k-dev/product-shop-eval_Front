@@ -1,10 +1,12 @@
 import * as React from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import {get} from "../../../api/api";
+
 import {Product} from "../../../type/product";
 import {FC, useEffect} from "react";
-import {useNavigate} from "react-router-dom";  // Import pour la navigation
+import {useNavigate} from "react-router-dom";
+import {getAllProducts} from "../../../api/api";  // Import pour la navigation
+
 
 const ProductSearshBarre: FC<{}> = ({}) => {
     const navigate = useNavigate();
@@ -17,7 +19,7 @@ const ProductSearshBarre: FC<{}> = ({}) => {
     useEffect(() => {
         async function fetchProducts() {
             try {
-                const productData = await get("product/all"); // ✅ Attente correcte
+                const productData = await getAllProducts(); // ✅ Attente correcte
                 console.log('Produits récupérés lors de la recherche:', productData);
 
                 // 🔄 Vérification et mise à jour de l'état avec les noms des produits
@@ -64,7 +66,7 @@ const ProductSearshBarre: FC<{}> = ({}) => {
                 }}
                 id="controllable-states-demo"
                 options={options}  // 🔄 Utilisation des options mises à jour
-                sx={{width: 300}}
+                sx={{width: "100%", color: "#A78385"}}
                 renderInput={(params) => <TextField {...params} label="Rechercher un produit"/>}
             />
         </div>

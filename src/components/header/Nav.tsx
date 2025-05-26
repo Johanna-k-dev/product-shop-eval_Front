@@ -1,7 +1,11 @@
-import React, {FC, useState} from 'react';
+import React, {FC, ReactNode, useState} from 'react';
 import {Button, Menu, MenuItem} from "@mui/material";
 
-const Nav: FC<{}> = ({}) => {
+
+interface NavProps {
+    children: ReactNode;
+}
+const Nav: FC<NavProps> = ({children}:NavProps) => {
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -21,7 +25,7 @@ const Nav: FC<{}> = ({}) => {
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleClick}
             >
-                Dashboard
+                {children}
             </Button>
             <Menu
                 id="basic-menu"

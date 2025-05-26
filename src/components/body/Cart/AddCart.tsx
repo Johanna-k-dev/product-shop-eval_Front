@@ -1,7 +1,7 @@
 import {FC, useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import {get} from "../../../api/api";
+import {getProductById} from "../../../api/api";
 import {Button} from "@mui/material";
 import {Product} from "../../../type/product";
 import QuantitySelect from "./QuantitySelect";
@@ -19,7 +19,7 @@ const AddCart: FC<{}> = ({}) => {
     // Requête API pour obtenir les détails du produit à partir de son ID
     useEffect(() => {
         if (id) {
-            get(`/product/${id}`).then((data) => {
+            getProductById(Number(id)).then((data:any) => {
                 console.log("Détails du produit:", data);
                 setProduct(data);
             }).catch((error) => {
@@ -56,7 +56,7 @@ const AddCart: FC<{}> = ({}) => {
 
     return (
         <>
-            <QuantitySelect stock={product?.quantity || 0} price={product?.price || 0} onQuantityChange={handleQuantityChange}/>
+            <QuantitySelect price={product?.price || 0} stock={product?.quantity || 0} onQuantityChange={handleQuantityChange}/>
             <Button onClick={handleAddToCart} key={product?.name}>
                 <AddShoppingCartIcon/> Ajouter
             </Button>

@@ -6,7 +6,8 @@ import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import {get} from "../../../api/api";
+import {getAllProducts} from "../../../api/api";
+import {Grid2} from "@mui/material";
 
 
 const ProductCard: FC = () => {
@@ -21,7 +22,7 @@ const ProductCard: FC = () => {
     useEffect(() => {
         async function fetchProducts() {
             try {
-                const productData = await get("product/all"); // ✅ Attente correcte
+                const productData = await getAllProducts()
                 console.log('Produits récupérés:', productData);
                 setProducts(productData); // ✅ Mise à jour de l'état
             } catch (error) {
@@ -32,19 +33,26 @@ const ProductCard: FC = () => {
         fetchProducts();
     }, []);
     return (
-        <div style={{display: "flex", flexWrap: "wrap", justifyContent: "center", width: "100%", height: "100%"}}>
+        <Grid2 style={{width:"100%",maxWidth:"2000px", display: "flex",flexWrap:"wrap", flexDirection: "row", justifyContent:"center", height:"1500px", overflow:"hidden",overflowY:"scroll", scrollbarWidth:"none"}}>
             {products.map((product: Product) => (
                 <Card key={product.id} sx={{
-                    maxWidth: 350,
-                    minWidth: 250,
-                    minHeight: 400,
-                    m: 2,
+                    minWidth: 450,
+                    minHeight: 300,
+                    m:2,
                     borderRadius: 2,
-                    backgroundColor: "aliceblue"
+                    backgroundColor: "#F6EDF0"
                 }}>
-                    <CardContent>
+                    <CardContent
+                        sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "center",
+                            width: "450px",
+                            height: "100%",
+                        }}
+                    >
                         <Typography variant="h4">{product.name}</Typography>
-                        <img src={product.posterPath} alt={product.name} onClick={() => handleNavigate(product.id)}/>
+                        <img src={product.posterPath} alt={product.name} onClick={() => handleNavigate(product.id)} style={{borderRadius:"20px", margin:"20px"}} />
                         <Typography variant="body1">{product.price} €</Typography>
                         <Typography variant="body2">{product.description}</Typography>
                     </CardContent>
@@ -53,7 +61,7 @@ const ProductCard: FC = () => {
                     </CardActions>
                 </Card>
             ))}
-        </div>
+        </Grid2 >
     );
 };
 
