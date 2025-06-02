@@ -9,7 +9,7 @@ const ProductsDisplayer: FC<{}> = (product: any) => {
 
             <Grid2 className={"products-grid"} sx={{
 
-                height: "1600px",
+                height: "1320px",
                 display: "flex",
                 flexDirection:"column",
                 flexWrap:"wrap",

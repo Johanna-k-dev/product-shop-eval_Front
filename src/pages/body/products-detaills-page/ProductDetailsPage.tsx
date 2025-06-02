@@ -1,12 +1,12 @@
 import React, {FC, useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import {Product} from "../../type/product";
-import CardContent from "@mui/material/CardContent";
+import {Product} from "../../../@type/product";
 import Typography from "@mui/material/Typography";
-import AddCart from "../../components/body/Cart/AddCart";
-import {getProductById} from "../../api/api";
+import {decreaseStock, getProductById} from "../../../api/api";
+import DetailsInfo from "./DetailsInfo";
 
-const ProductDetails: FC = () => {
+
+const ProductDetailsPage: FC = () => {
     const {id} = useParams<{ id: string }>();
     const [product, setProduct] = useState<Product | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
@@ -14,6 +14,46 @@ const ProductDetails: FC = () => {
     const [alertMessage, setAlertMessage] = useState<string>("");
     const [stock, setStock] = useState<number>(0);
     const [totalPrice, setTotalPrice] = useState<number>(0);
+    const [selectedQuantity, setSelectedQuantity] = useState<number>(0);
+    const [selectedTotal, setSelectedTotal] = useState<number>(0);
+
+    const handleQuantityChange = (quantity: number, totalPrice: number) => {
+        setSelectedQuantity(quantity);
+        setSelectedTotal(totalPrice);
+    };
+
+    const handleIncrease = () => {
+        if (product && selectedQuantity < stock) {
+            setSelectedQuantity(q => q + 1);
+            setSelectedTotal(t => Number(((t + product.price).toFixed(2))));
+            generateAlert(selectedQuantity + 1, stock);
+        }
+    };
+
+    const handleDecrease = () => {
+        if (selectedQuantity > 0) {
+            setSelectedQuantity(q => q - 1);
+            setSelectedTotal(t => Number(((t - product!.price).toFixed(2))));
+            generateAlert(selectedQuantity - 1, stock);
+        }
+    };
+
+    const handleAddToCart = async () => {
+        if (selectedQuantity > 0 && product) {
+            const result = await decreaseStock(product.id, selectedQuantity);
+            if (result) {
+                alert(`Ajouté au panier avec ${selectedQuantity} article(s)`);
+                setStock(s => s - selectedQuantity); // Mise à jour locale
+                setSelectedQuantity(0);
+                setSelectedTotal(0);
+                generateAlert(0, stock - selectedQuantity);
+            } else {
+                alert("Stock insuffisant pour cette quantité.");
+            }
+        } else {
+            alert("Sélectionnez une quantité valide.");
+        }
+    };
 
     useEffect(() => {
         async function fetchProduct() {
@@ -37,7 +77,6 @@ const ProductDetails: FC = () => {
                 setLoading(false);
             }
         }
-
         fetchProduct();
     }, [id]);
 
@@ -63,33 +102,36 @@ const ProductDetails: FC = () => {
     if (!product) return <p>Produit introuvable.</p>;
 
     return (
-        <section style={{ padding: "30px", margin: "50px" }}>
+        <section style={{ padding: "30px",justifyContent:"center", alignItems: "center"}}>
             <article
                 className="background-image"
-                style={{padding: "40px", height: "800px", justifySelf: "center !important"}}
-            >
 
+                style={{padding: "40px",width:'1700px',height:"450px", borderRadius:'20px'}}
+            >
                 <Typography variant="h3" style={{color: "white"}}>{product.name}</Typography>
                 <div style={{display: "flex"}}>
                     <img
                         src={product.posterPath}
                         alt={product.name}
                         style={{
-                            margin: "40px",
-                            width: "600px",
+                            boxSizing:"border-box",
+                            margin: "30px",
+                            width: "300px",
                             height: "100%",
-                            objectFit: "contain",
+                            objectFit: "cover",
                             marginBottom: "15px",
-                            borderRadius: "20px"
                         }}
                     />
-                    <div style={{display: "flex", flexDirection: "column", gap:"30px", justifyContent:"start"}}>
-                        <Typography variant="body1"
-                                    style={{color: "white", fontWeight: "bold"}}>{product.description}</Typography>
-                        <p style={{color: "white"}}>{alertMessage}</p>
-                        <AddCart/>
-
-                    </div>
+                    <DetailsInfo
+                                name={product.name}
+                                price={product.price}
+                                 description={product.description}
+                                 alertMessage={alertMessage}
+                                 quantity={selectedQuantity}
+                                 totalPrice={selectedTotal}
+                                 onIncrease={handleIncrease}
+                                 onDecrease={handleDecrease}
+                                 onAddToCart={handleAddToCart} />
                 </div>
             </article>
 
@@ -98,4 +140,4 @@ const ProductDetails: FC = () => {
 
 };
 
-export default ProductDetails;
+export default ProductDetailsPage;

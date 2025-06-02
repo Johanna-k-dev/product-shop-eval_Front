@@ -4,7 +4,7 @@ import Grid2 from "@mui/material/Grid2";
 import Card from "@mui/material/Card";
 import {useNavigate, NavigateFunction} from "react-router";
 import * as React from "react";
-import {Product} from "../../../type/product";
+import {Product} from "../../../@type/product";
 
 
 interface IProps {
@@ -44,10 +44,10 @@ const CollectionDisplayer: FC< IProps> = ({collectionID ,title}) => {
             <Grid2 container spacing={2}>
                 {products.map((product) => (
                     <Grid2  key={product.id} component="div" style={{display: "flex", justifyContent: "space-between" , flexDirection:"column", alignItems: "center",}}>
-                        <Card style={{width: "500px", height: "100%", display: "flex",flexDirection:"column" , justifyContent: "center", alignItems: "center"}}>
+                        <Card style={{width: "500px", height: "100%", display: "flex",flexDirection:"column" , justifyContent: "center", alignItems: "center"}}
+                              onClick={() => handleNavigate(product.id)}>
                             <h4>{product.name}</h4>
-                            <img src={product.posterPath} alt={product.name}/>
-                            <p onClick={() => handleNavigate(product.id)}>En savoir plus</p>
+                            <img src={product.posterPath} alt={product.name} style={{margin:"20px"}}/>
                         </Card>
                     </Grid2>
                 ))}

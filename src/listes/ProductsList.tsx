@@ -1,6 +1,6 @@
 import {FC, useState, useEffect} from 'react';
 
-import {Product} from "../type/product";
+import {Product} from "../@type/product";
 import {getAllProducts} from "../api/api";
 
 interface ProductListProps {

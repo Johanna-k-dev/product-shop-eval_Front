@@ -1,6 +1,6 @@
 import React, {FC, useEffect, useState} from "react";
 import {useNavigate} from "react-router";
-import {Product} from "../../../type/product";
+import {Product} from "../../../@type/product";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
@@ -53,12 +53,8 @@ const ProductCard: FC = () => {
                     >
                         <Typography variant="h4">{product.name}</Typography>
                         <img src={product.posterPath} alt={product.name} onClick={() => handleNavigate(product.id)} style={{borderRadius:"20px", margin:"20px"}} />
-                        <Typography variant="body1">{product.price} €</Typography>
-                        <Typography variant="body2">{product.description}</Typography>
                     </CardContent>
-                    <CardActions>
-                        <Button size="small" onClick={() => handleNavigate(product.id)}>Détailles du produit</Button>
-                    </CardActions>
+
                 </Card>
             ))}
         </Grid2 >

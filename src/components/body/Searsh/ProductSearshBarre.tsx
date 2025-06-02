@@ -2,7 +2,7 @@ import * as React from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
-import {Product} from "../../../type/product";
+import {Product} from "../../../@type/product";
 import {FC, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {getAllProducts} from "../../../api/api";  // Import pour la navigation

@@ -32,9 +32,9 @@ const QuantitySelect: FC<QuantitySelectProps> = ({stock, price, onQuantityChange
 
 
         if (stockAfterSelect === 0) {
-            setAlertMessage(`Nous en avons que ${initialStock} en Stock, alors foncez !🚀`);
+            setAlertMessage(`Ce produit a été victime de son succès, il est actuellement en rupture de stock.`);
         } else if (selectedStock === oneOfInitialStock) {
-            setAlertMessage(`Attention, il ne reste que ${stockAfterSelect} article(s) en stock ! 🚨`);
+            setAlertMessage(`Attention, il ne reste que ${stockAfterSelect} article en stock ! 🚨`);
         } else if (selectedStock === twoOfInitialStock) {
             setAlertMessage(`Attention, il ne reste que ${stockAfterSelect} article(s) en stock ! 🚨`);
         } else if (selectedStock === treeOfInitialStock) {
@@ -45,6 +45,7 @@ const QuantitySelect: FC<QuantitySelectProps> = ({stock, price, onQuantityChange
     };
 
     // Met à jour le prix et l'alerte en fonction de la quantité sélectionnée
+
     const handleQuantityChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const quantity = parseInt(event.target.value, 10);
         setSelectedQuantity(quantity);
