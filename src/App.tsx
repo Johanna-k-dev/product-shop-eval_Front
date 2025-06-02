@@ -1,16 +1,21 @@
 import React from 'react';
-import {BrowserRouter, Routes} from "react-router";
+import {BrowserRouter,} from "react-router";
 import './App.css';
-import LayoutConnected from "./layout/LayoutConnected";
-import Router from "./router/Router";
+import {AddCartProvider} from "./contexts/AddCartContext";
+import {AuthProvider} from './contexts/UserConnectionContext';
+import AppRoutes from "./router/AppRoutes";
 
 function App() {
+
   return (
     <>
-        <BrowserRouter>
-            <Router/>
-        </BrowserRouter>
-
+        <AddCartProvider>
+            <AuthProvider>
+                <BrowserRouter>
+                    <AppRoutes/>
+                </BrowserRouter>
+            </AuthProvider>
+        </AddCartProvider>
     </>
   );
 }

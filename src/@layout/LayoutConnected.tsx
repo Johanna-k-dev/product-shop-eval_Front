@@ -1,14 +1,15 @@
+import HeaderConnected from "../pages/header/HeaderConnected";
 import React, {FC} from 'react';
-import Header from "../pages/header/Header";
 import {Outlet} from "react-router";
 import "../App.css"
 import Footer from "../pages/footer/Footer";
 
 
+
 const layoutConnected: FC<{}> = ({}) => {
     return (
         <main className={"main"}>
-            <Header/>
+            <HeaderConnected/>
             <Outlet/>
             <Footer/>
         </main>

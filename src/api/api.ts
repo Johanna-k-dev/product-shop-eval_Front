@@ -118,6 +118,8 @@ export const deleteProductById = async (id:number) => {
     }
 };
 
+
+//Stock service
 export const decreaseStock = async (productId: number, quantity: number) => {
     try {
         const response = await axios.post(`/stock/decrease`, null, {params: {productId, quantity}});
@@ -134,6 +136,61 @@ export const increaseStock = async (productId: number, quantity: number) => {
         return response.data;
     } catch (error) {
         console.error("Erreur lors de l'augmentation du stock", error);
+        return null;
+    }
+};
+
+// Invoice Services
+
+export const generateInvoice = async (orderId: number) => {
+    try {
+        const response = await axios.post(`/invoice/generate`, null, {params: {orderId}});
+        return response.data;
+    } catch (error) {
+        console.error("Erreur lors de la génération de la facture", error);
+        return null;
+    }
+};
+
+export const getInvoice = async (orderId: number) => {
+    try {
+        const response = await axios.get(`/invoice/get/${orderId}`);
+        return response.data;
+    } catch (error) {
+        console.error("Erreur lors de la récupération de la facture", error);
+        return null;
+    }
+};
+
+// POST - Inscription
+export const registerUser = async (userData: any) => {
+    try {
+        const response = await axios.post("/user/add", userData);
+        return response.data;
+    } catch (error) {
+        console.error("Erreur lors de l'inscription", error);
+        return null;
+    }
+};
+
+// POST - Connexion
+export const loginUser = async (loginData: any) => {
+    try {
+        const response = await axios.post("/user/login", loginData);
+        return response.data;
+    } catch (error) {
+        console.error("Erreur lors de la connexion", error);
+        return null;
+    }
+};
+
+// PUT - Mettre à jour un utilisateur par ID
+export const updateUser = async (id: number, userData: any) => {
+    try {
+        const response = await axios.put(`/user/update/${id}`, userData);
+        return response.data;
+    } catch (error) {
+        console.error("Erreur lors de la mise à jour de l'utilisateur", error);
         return null;
     }
 };

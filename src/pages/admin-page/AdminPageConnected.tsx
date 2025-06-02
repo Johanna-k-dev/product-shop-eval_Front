@@ -1,13 +1,13 @@
 import {FC} from 'react';
 
-const Admin: FC<{}> = ({}) => {
+const AdminPageConnected: FC<{}> = ({}) => {
     return (
         <>
-            <section>
+            <section style={{height: "800px"}}>
                 <h2>Dashboard Administrateur</h2>
             </section>
         </>
     );
 };
 
-export default Admin;
+export default AdminPageConnected;
