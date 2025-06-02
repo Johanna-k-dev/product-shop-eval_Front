@@ -3,7 +3,7 @@ import {useParams} from 'react-router-dom';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import {getProductById} from "../../../api/api";
 import {Button} from "@mui/material";
-import {Product} from "../../../type/product";
+import {Product} from "../../../@type/product";
 import QuantitySelect from "./QuantitySelect";
 
 const AddCart: FC<{}> = ({}) => {
