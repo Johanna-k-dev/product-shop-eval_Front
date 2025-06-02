@@ -1,6 +1,7 @@
 .background-image{
     margin: 30px;
-    background-image: url("/public/assets/backgrounds/Background_Border_salmon.png");
+    background-image: url("/public/assets/backgrounds/Background+Border-about.png");
     background-repeat: no-repeat;
-
+    background-size: contain;
+    border-radius: 20px;
 }
