@@ -3,40 +3,53 @@ import axios from "axios";
 axios.defaults.baseURL = 'http://localhost:8080/';
 axios.defaults.headers.post["Accept"] = "application/json";
 axios.defaults.headers.post["Content-Type"] = "application/json";
-axios.defaults.withCredentials = false;
 
-axios.interceptors.response.use(
-    (response) => {
-        console.log("interceptor response", response);
-        return response;
+
+axios.interceptors.request.use(
+    (config) => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
     },
+    (error) => Promise.reject(error)
+);
+
+// ✅ INTERCEPTEUR DE RÉPONSE : gestion des erreurs globales
+axios.interceptors.response.use(
+    (response) => response,
     (error) => {
         if (error.response) {
             const {status} = error.response;
-            console.log("interceptor error", status);
+
             switch (status) {
                 case 400:
-                    console.log("ERROR 400: Bad Request");
+                    console.warn(" 400: Mauvaise requête");
                     break;
                 case 401:
-                    console.log("ERROR 401: Unauthorized");
+                    console.warn("⚠ 401: Non autorisé — session expirée ou token invalide.");
+                    alert("Votre session a expiré. Veuillez vous reconnecter.");
+                    window.location.href = "/admin"; // Redirection SANS supprimer les données
                     break;
                 case 403:
-                    console.log("ERROR 403: Forbidden");
+                    console.warn("⛔ 403: Accès refusé.");
+                    alert("Accès refusé. Veuillez vous reconnecter.");
+                    window.location.href = "/admin";
                     break;
                 case 404:
-                    console.log("ERROR 404: Not Found");
+                    console.warn("🔍 404: Ressource non trouvée.");
                     break;
                 case 500:
-                    console.log("ERROR 500: Internal Server Error");
+                    console.error("500: Erreur serveur interne.");
                     break;
                 default:
-                    console.log("Unknown Error");
-                    break;
+                    console.error("Erreur inconnue", status);
             }
         } else {
-            console.error("No response received", error);
+            console.error("Aucune réponse du serveur", error);
         }
+
         return Promise.reject(error);
     }
 );
@@ -117,7 +130,21 @@ export const deleteProductById = async (id:number) => {
         return null;
     }
 };
-
+// POST - Créer une commande
+export const createOrder = async (orderData: any) => {
+    try {
+        const token = localStorage.getItem("token");
+        const response = await axios.post("/order/create", orderData, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data; // on suppose que { id: 42, ... } est retourné
+    } catch (error) {
+        console.error("Erreur lors de la création de la commande", error);
+        return null;
+    }
+};
 
 //Stock service
 export const decreaseStock = async (productId: number, quantity: number) => {
@@ -144,7 +171,13 @@ export const increaseStock = async (productId: number, quantity: number) => {
 
 export const generateInvoice = async (orderId: number) => {
     try {
-        const response = await axios.post(`/invoice/generate`, null, {params: {orderId}});
+        const token = localStorage.getItem('token');
+        const response = await axios.post(`/invoice/generate`, null, {
+            params: {orderId},
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
         return response.data;
     } catch (error) {
         console.error("Erreur lors de la génération de la facture", error);
@@ -173,13 +206,43 @@ export const registerUser = async (userData: any) => {
     }
 };
 
-// POST - Connexion
-export const loginUser = async (loginData: any) => {
+// POST - Login
+export const loginUser = async (loginData: { email: string; password: string }) => {
     try {
         const response = await axios.post("/user/login", loginData);
-        return response.data;
+        const {token, user} = response.data;
+
+        if (token && user) {
+            localStorage.setItem("token", token);
+            localStorage.setItem("user", user.name || user.email);
+            return {success: true, user: user.name || user.email};
+        }
+
+        return {success: false};
     } catch (error) {
         console.error("Erreur lors de la connexion", error);
+        return {success: false};
+    }
+};
+
+//POST- Logout
+
+export const logoutUser = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user"); // all user data
+};
+
+//GET-user
+
+export const fetchCurrentUser = async () => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get('/user/me', {
+            headers: {Authorization: `Bearer ${token}`}
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Erreur lors de la récupération de l'utilisateur connecté", error);
         return null;
     }
 };
