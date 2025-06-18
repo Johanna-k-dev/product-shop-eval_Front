@@ -1,15 +1,14 @@
 import {FC} from 'react';
 import {
-    Paper,
-    styled,
-    Table,
-    TableBody,
     TableCell,
-    tableCellClasses,
-    TableContainer,
-    TableHead,
     TableRow,
-
+    styled,
+    tableCellClasses,
+    Paper,
+    TableContainer,
+    Table,
+    TableHead,
+    TableBody
 } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
@@ -17,10 +16,7 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import {useCart} from '../../../contexts/AddCartContext'
 import '../../../pages/body/cart-page/CartPage.css';
 import {useNavigate} from "react-router-dom";
-
-
-
-
+import CartValidationButton from "../../buttons/CartValidationButton";
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -114,7 +110,7 @@ const CartTable: FC<{}> = ({}) => {
                 </Table>
             </TableContainer>
             <div style={{display:"flex", width: '300px',height: '150px', justifyContent: 'center', alignItems: 'center', margin: 'auto'}}>
-                <button type="button" className={"scale-on-hover"} style={{width:"200px", height: '60px', backgroundColor:"#A78385", color:'white', fontSize:'x-large',border:'none',borderRadius:'20px'}} onClick={handleNavigate}>Valider</button>
+               <CartValidationButton/>
             </div>
         </>
     );
