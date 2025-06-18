@@ -10,11 +10,7 @@ function App() {
   return (
     <>
         <AddCartProvider>
-            <AuthProvider>
-                <BrowserRouter>
                     <AppRoutes/>
-                </BrowserRouter>
-            </AuthProvider>
         </AddCartProvider>
     </>
   );
