@@ -1,3 +1,12 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+ font-family: 'fantasy';
+}
+
+
 .main {
     display: flex;
     flex-direction: column;
