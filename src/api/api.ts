@@ -16,13 +16,12 @@ axios.interceptors.request.use(
     (error) => Promise.reject(error)
 );
 
-// ✅ INTERCEPTEUR DE RÉPONSE : gestion des erreurs globales
+
 axios.interceptors.response.use(
     (response) => response,
     (error) => {
         if (error.response) {
             const {status} = error.response;
-
             switch (status) {
                 case 400:
                     console.warn(" 400: Mauvaise requête");
@@ -30,12 +29,16 @@ axios.interceptors.response.use(
                 case 401:
                     console.warn("⚠ 401: Non autorisé — session expirée ou token invalide.");
                     alert("Votre session a expiré. Veuillez vous reconnecter.");
-                    window.location.href = "/admin"; // Redirection SANS supprimer les données
+                    localStorage.removeItem("token");
+                    localStorage.removeItem("user")
+                    window.location.href = "/admin";
                     break;
                 case 403:
-                    console.warn("⛔ 403: Accès refusé.");
+                    console.warn("403: Accès refusé.");
                     alert("Accès refusé. Veuillez vous reconnecter.");
-                    window.location.href = "/admin";
+                //    localStorage.removeItem("token");
+                  //  localStorage.removeItem("user")
+                  //  window.location.href = "/admin";
                     break;
                 case 404:
                     console.warn("🔍 404: Ressource non trouvée.");
@@ -130,21 +133,7 @@ export const deleteProductById = async (id:number) => {
         return null;
     }
 };
-// POST - Créer une commande
-export const createOrder = async (orderData: any) => {
-    try {
-        const token = localStorage.getItem("token");
-        const response = await axios.post("/order/create", orderData, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
-        return response.data; // on suppose que { id: 42, ... } est retourné
-    } catch (error) {
-        console.error("Erreur lors de la création de la commande", error);
-        return null;
-    }
-};
+
 
 //Stock service
 export const decreaseStock = async (productId: number, quantity: number) => {
@@ -167,8 +156,29 @@ export const increaseStock = async (productId: number, quantity: number) => {
     }
 };
 
-// Invoice Services
+// POST - create order
+export const createOrderWithProducts = async (orderData: any) => {
+    try {
+        const token = localStorage.getItem("token");
+        const response = await axios.post("/order-products/add", orderData, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        console.log(response.data)
+        return response.data;
+    } catch (error) {
+        console.error("Erreur lors de la création de la commande avec produits", error);
+        return null;
+    }
+};
+//get order by id
+export const fetchOrderProductById = async (orderId: number, productId: number) => {
+    const response = await axios.get(`/${orderId}/${productId}`);
+    return response.data;
+};
 
+// Invoice Services
 export const generateInvoice = async (orderId: number) => {
     try {
         const token = localStorage.getItem('token');
@@ -195,7 +205,7 @@ export const getInvoice = async (orderId: number) => {
     }
 };
 
-// POST - Inscription
+// POST - subscribe
 export const registerUser = async (userData: any) => {
     try {
         const response = await axios.post("/user/add", userData);
@@ -209,15 +219,13 @@ export const registerUser = async (userData: any) => {
 // POST - Login
 export const loginUser = async (loginData: { email: string; password: string }) => {
     try {
-        const response = await axios.post("/user/login", loginData);
+        const response = await axios.post("/auth/login", loginData);
         const {token, user} = response.data;
-
         if (token && user) {
             localStorage.setItem("token", token);
             localStorage.setItem("user", user.name || user.email);
             return {success: true, user: user.name || user.email};
         }
-
         return {success: false};
     } catch (error) {
         console.error("Erreur lors de la connexion", error);
@@ -226,14 +234,12 @@ export const loginUser = async (loginData: { email: string; password: string }) 
 };
 
 //POST- Logout
-
 export const logoutUser = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user"); // all user data
 };
 
 //GET-user
-
 export const fetchCurrentUser = async () => {
     try {
         const token = localStorage.getItem('token');
@@ -247,7 +253,7 @@ export const fetchCurrentUser = async () => {
     }
 };
 
-// PUT - Mettre à jour un utilisateur par ID
+// PUT - Update user by id
 export const updateUser = async (id: number, userData: any) => {
     try {
         const response = await axios.put(`/user/update/${id}`, userData);
