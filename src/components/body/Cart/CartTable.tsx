@@ -22,11 +22,11 @@ const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
         backgroundColor: `rgba(167, 131, 131, 0.70)`,
         color: theme.palette.common.white,
-        fontSize: 16,
+        fontSize: 'xx-large',
         fontWeight: 'bolder',
     },
     [`&.${tableCellClasses.body}`]: {
-        fontSize: 14,
+        fontSize: "x-large",
     },
 }));
 
@@ -53,7 +53,7 @@ const CartTable: FC<{}> = ({}) => {
             item.id === id
                 ? {
                     ...item,
-                    quantity: Math.max(1, item.quantity + delta), // Empêche les quantités négatives
+                    quantity: Math.max(1, item.quantity + delta),
                     totalPrice: (item.price * Math.max(1, item.quantity + delta))
                 }
                 : item
@@ -76,7 +76,7 @@ const CartTable: FC<{}> = ({}) => {
                             <StyledTableCell>Produit</StyledTableCell>
                             <StyledTableCell align="right">Identifiant</StyledTableCell>
                             <StyledTableCell align="right">Prix unitaire</StyledTableCell>
-                            <StyledTableCell align="right">Quantité séléctionnée</StyledTableCell>
+                            <StyledTableCell align="right">Quantité sélectionnée</StyledTableCell>
                             <StyledTableCell align="right">Total par produit</StyledTableCell>
                         </TableRow>
                     </TableHead>
@@ -86,26 +86,28 @@ const CartTable: FC<{}> = ({}) => {
                                 <StyledTableCell> {item.name}</StyledTableCell>
                                 <StyledTableCell align="right">{item.id}</StyledTableCell>
                                 <StyledTableCell align="right">{item.price.toFixed(2)} €</StyledTableCell>
-                                <StyledTableCell align="right" style={{ display:'flex',alignItems:'center', gap: '10px'  }}>
-                                    <DeleteOutlineIcon className={"scale-on-hover"} onClick={() => removeItem(item.id)} style={{cursor: 'pointer', color:'#A78385'}}/>
-                                    <RemoveCircleOutlineIcon className={"scale-on-hover"}onClick={() => updateQuantity(item.id, -1)} style={{cursor: 'pointer',
-                                        color: '#A78385'}}/>
+                                <StyledTableCell align="right" style={{ display:'flex',alignItems:'center', gap: '10px'}}>
+                                    <DeleteOutlineIcon className={"scale-on-hover"} onClick={() => removeItem(item.id)} style={{cursor: 'pointer', color:'#A78385',marginLeft:'10px',marginRight:'10px',fontSize:'40px'}}/>
+                                    <RemoveCircleOutlineIcon className={"scale-on-hover"}onClick={() => updateQuantity(item.id, -1)} style={{cursor: 'pointer', color: '#A78385',
+                                        marginLeft: '10px',
+                                        marginRight: '10px',
+                                        fontSize: '40px'}}/>
                                     {item.quantity}
-                                    <AddCircleOutlineIcon className={"scale-on-hover"} onClick={() => updateQuantity(item.id, 1)} style={{cursor: 'pointer',
-                                        color: '#A78385'}}/>
-
+                                    <AddCircleOutlineIcon className={"scale-on-hover"} onClick={() => updateQuantity(item.id, 1)} style={{cursor: 'pointer', color: '#A78385',
+                                        marginLeft: '10px',
+                                        marginRight: '10px',
+                                        fontSize: '40px'}}/>
                                 </StyledTableCell>
-                                <StyledTableCell align="right">{item.totalPrice.toFixed(2)} € </StyledTableCell>
+                                <StyledTableCell align="right">{(item.totalPrice ?? 0).toFixed(2)}
+                                    € </StyledTableCell>
                             </StyledTableRow>
                         ))}
                             <StyledTableRow>
-                                <StyledTableCell colSpan={4} align="right" style={{fontSize: 'x-large',fontWeight:'bolder' ,color: '#A78385'}}>Total </StyledTableCell>
-                                <StyledTableCell align="right" style={{fontSize: 'larger',
-                                    fontWeight: 'bolder',
-                                    color: '#A78385' }}>{cartItems.reduce((acc, item) => acc + item.totalPrice, 0).toFixed(2)} €</StyledTableCell>
+                                <StyledTableCell colSpan={4} align="right" style={{fontSize: 'xx-large',fontWeight:'bolder' ,color: '#A78385'}}>Total </StyledTableCell>
+                                <StyledTableCell align="right" style={{fontSize:'xx-large'}}>
+                                    {cartItems.reduce((acc, item) => acc + (item.totalPrice ?? 0), 0).toFixed(2)} €
+                                </StyledTableCell>
                             </StyledTableRow>
-
-
                     </TableBody>
                 </Table>
             </TableContainer>
