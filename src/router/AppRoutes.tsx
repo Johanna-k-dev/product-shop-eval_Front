@@ -2,18 +2,17 @@ import {FC} from "react";
 import {Navigate, Route, Routes} from "react-router-dom";
 import ProductDetailsPage from "../pages/body/products-detaills-page/ProductDetailsPage";
 import HomePage from "../pages/body/home-page/HomePage";
-import AllProductsPage from "../pages/body/AllProductsPage";
-import SkinCarePage from "../pages/body/SkinCarePage";
-import HairesCarePage from "../pages/body/HairsCarePage";
-import MakeUpPage from "../pages/body/MakeUpPage";
+import AllProductsPage from "../pages/body/all-product-search-page/AllProductsPage";
+import SkinCarePage from "../pages/body/collections-pages/SkinCarePage";
+import HairesCarePage from "../pages/body/collections-pages/HairsCarePage";
+import MakeUpPage from "../pages/body/collections-pages/MakeUpPage";
 import LayoutConnected from "../@layout/LayoutConnected";
 import CartPage from "../pages/body/cart-page/CartPage";
-import AdminPageConnected from "../pages/admin-page/AdminPageConnected";
-import AdminPageDisconnected from "../pages/admin-page/AdminPageDisconnected";
+import UserPageDisconnected from "../pages/body/user-page/UserPageDisconnected";
 import {useAuth} from "../contexts/UserConnectionContext";
-import CartConnected from "../pages/body/cart-page/CartConnected";
 import LayoutDisconnected from "../@layout/LayoutDisconnected";
-import InvoicePage from "../pages/body/InvoicePage";
+import OrderPage from "../pages/body/order-page/OrderPage";
+import UserPageConnected from "../pages/body/user-page/UserPageConnected";
 
 const AppRoutes: FC = () => {
     const {isAuthenticated} = useAuth();
@@ -29,8 +28,8 @@ const AppRoutes: FC = () => {
                     <Route path="make-up" element={<MakeUpPage/>}/>
                     <Route path="product-details/:id" element={<ProductDetailsPage/>}/>
                     <Route path="cart" element={<CartPage/>}/>
-                    <Route path="admin" element={<AdminPageConnected/>}/>
-                    <Route path={"invoice"} element={<InvoicePage/>}/>
+                    <Route path="user" element={<UserPageConnected/>}/>
+                    <Route path={"order"} element={<OrderPage/>}/>
                 </Route>
             ) : (
                 <Route path="/" element={<LayoutDisconnected/>}>
@@ -42,7 +41,7 @@ const AppRoutes: FC = () => {
                     <Route path="make-up" element={<MakeUpPage/>}/>
                     <Route path="product-details/:id" element={<ProductDetailsPage/>}/>
                     <Route path="cart" element={<CartPage/>}/>
-                    <Route path="admin" element={<AdminPageDisconnected/>}/>
+                    <Route path="user" element={<UserPageDisconnected/>}/>
                 </Route>
             )}
         </Routes>
