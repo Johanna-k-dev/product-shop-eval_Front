@@ -1,7 +1,11 @@
 .background-image{
+    width: 100%;
     margin: 30px;
     background-image: url("/public/assets/backgrounds/Background+Border-about.png");
     background-repeat: no-repeat;
     background-size: contain;
     border-radius: 20px;
+}
+@media (max-width: 1024px) {
+
 }

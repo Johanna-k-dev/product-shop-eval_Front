@@ -1,13 +1,15 @@
 import {FC, useEffect, useState} from 'react';
-import Logout from "../../components/buttons/Logout";
-import {fetchCurrentUser} from "../../api/api";
-import {updateUser} from "../../api/api"
+import Logout from "../../../components/buttons/Logout";
+import {fetchCurrentUser} from "../../../api/api";
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import BackToCard from "../../components/buttons/BackToCard";
+import BackToCard from "../../../components/buttons/BackToCart";
+import {User} from "../../../@type/app";
+import {useNavigate} from "react-router-dom";
 
 
-const AdminPageConnected: FC<{}> = () => {
+const UserPageConnected: FC<{}> = () => {
     const [user, setUser] = useState<User | null>(null);
+    const navigate = useNavigate()
 
     useEffect(() => {
         const loadUser = async () => {
@@ -16,6 +18,7 @@ const AdminPageConnected: FC<{}> = () => {
                 setUser(data);
             } catch (err) {
                 console.error("Erreur lors de la récupération du profil :", err);
+                navigate("/user-connexion")
             }
         };
         loadUser();
@@ -61,4 +64,4 @@ const AdminPageConnected: FC<{}> = () => {
     );
 };
 
-export default AdminPageConnected;
+export default UserPageConnected;
