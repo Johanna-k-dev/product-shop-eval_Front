@@ -33,14 +33,15 @@ const ProductCard: FC = () => {
         fetchProducts();
     }, []);
     return (
-        <Grid2 style={{width:"100%",maxWidth:"2000px", display: "flex",flexWrap:"wrap", flexDirection: "row", justifyContent:"center", height:"1500px", overflow:"hidden",overflowY:"scroll", scrollbarWidth:"none"}}>
+        <Grid2 style={{width:"100%",maxWidth:"2400px", display: "flex",flexWrap:"wrap", flexDirection: "row",gap:'50px', justifyContent:"space-around", height:"1500px", overflow:"hidden",overflowY:"scroll", scrollbarWidth:"none"}}>
             {products.map((product: Product) => (
-                <Card key={product.id} sx={{
-                    minWidth: 450,
-                    minHeight: 300,
+                <Card key={product.id} className={'scale-on-hover'} sx={{
+                    maxWidth: '500px',
+                    minWidth: 350,
+                    minHeight: 200,
                     m:2,
                     borderRadius: 2,
-                    backgroundColor: "#F6EDF0"
+                    backgroundColor: "rgba(116,186,196,0.54)"
                 }}>
                     <CardContent
                         sx={{
@@ -49,9 +50,10 @@ const ProductCard: FC = () => {
                             justifyContent: "center",
                             width: "450px",
                             height: "100%",
+                            textAlign: "center"
                         }}
                     >
-                        <Typography variant="h4">{product.name}</Typography>
+                        <Typography variant="h4">{product.name} {product.price}€</Typography>
                         <img src={product.posterPath} alt={product.name} onClick={() => handleNavigate(product.id)} style={{borderRadius:"20px", margin:"20px"}} />
                     </CardContent>
 

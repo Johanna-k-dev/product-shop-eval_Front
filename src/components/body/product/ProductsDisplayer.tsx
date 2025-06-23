@@ -14,7 +14,7 @@ const ProductsDisplayer: FC<{}> = (product: any) => {
                 flexDirection:"column",
                 flexWrap:"wrap",
                 justifyContent:"center",
-                justifySelf: "start",
+                justifySelf: "center",
             }}>
                 <ProductCard key={product.id}/>
             </Grid2>

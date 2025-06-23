@@ -7,7 +7,7 @@ import DetailsInfo from "./DetailsInfo";
 
 
 const ProductDetailsPage: FC = () => {
-    const {id} = useParams<{ id: string }>();
+    const {id} = useParams<{ id : string}>();
     const [product, setProduct] = useState<Product | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
@@ -102,36 +102,37 @@ const ProductDetailsPage: FC = () => {
     if (!product) return <p>Produit introuvable.</p>;
 
     return (
-        <section style={{ padding: "30px",justifyContent:"center", alignItems: "center"}}>
+        <section style={{ height: '950px',boxSizing:'border-box',padding: "30px",justifyContent:"center", alignItems: "center"}}>
             <article
                 className="background-image"
-
-                style={{padding: "40px",width:'1700px',height:"450px", borderRadius:'20px'}}
+                style={{display:'flex',flexDirection:'column',padding: "40px",width:'1800px',height:"100%",  alignSelf:"center", objectFit:"cover", }}
             >
-                <Typography variant="h3" style={{color: "white"}}>{product.name}</Typography>
+                <Typography variant="h3" style={{color: "white", fontSize: 'xx-large',display:'flex',alignSelf:'center'}}>{product.name}</Typography>
                 <div style={{display: "flex"}}>
                     <img
                         src={product.posterPath}
                         alt={product.name}
                         style={{
-                            boxSizing:"border-box",
+
                             margin: "30px",
-                            width: "300px",
-                            height: "100%",
+                            width: "350px",
+                            height: "80%",
                             objectFit: "cover",
-                            marginBottom: "15px",
+                            marginBottom: "50px",
+                            borderRadius: '20px',
                         }}
                     />
                     <DetailsInfo
-                                name={product.name}
-                                price={product.price}
-                                 description={product.description}
-                                 alertMessage={alertMessage}
-                                 quantity={selectedQuantity}
-                                 totalPrice={selectedTotal}
-                                 onIncrease={handleIncrease}
-                                 onDecrease={handleDecrease}
-                                 onAddToCart={handleAddToCart} />
+                        id={product.id}
+                        name={product.name}
+                        price={product.price}
+                        description={product.description}
+                        alertMessage={alertMessage}
+                        quantity={selectedQuantity}
+                        totalPrice={selectedTotal}
+                        onIncrease={handleIncrease}
+                        onDecrease={handleDecrease}
+                        onAddToCart={handleAddToCart}  />
                 </div>
             </article>
 

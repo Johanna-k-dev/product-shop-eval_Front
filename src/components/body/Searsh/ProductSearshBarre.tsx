@@ -56,7 +56,8 @@ const ProductSearshBarre: FC<{}> = ({}) => {
     };
 
     return (
-        <div>
+        <div style={{margin:'30px', display:'flex',alignSelf:'center',width:'7' +
+                '0%',minWidth:'315px'}}>
             <Autocomplete
                 value={value}
                 onChange={handleSelect}  // 🔄 Appel de `handleSelect` lors de la sélection
