@@ -4,7 +4,6 @@ axios.defaults.baseURL = 'http://localhost:8080/';
 axios.defaults.headers.post["Accept"] = "application/json";
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
-
 axios.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem("token");
@@ -16,7 +15,6 @@ axios.interceptors.request.use(
     (error) => Promise.reject(error)
 );
 
-
 axios.interceptors.response.use(
     (response) => response,
     (error) => {
@@ -27,7 +25,7 @@ axios.interceptors.response.use(
                     console.warn(" 400: Mauvaise requête");
                     break;
                 case 401:
-                    console.warn("⚠ 401: Non autorisé — session expirée ou token invalide.");
+                    console.warn(" 401: Non autorisé — session expirée ou token invalide.");
                     alert("Votre session a expiré. Veuillez vous reconnecter.");
                     localStorage.removeItem("token");
                     localStorage.removeItem("user")
@@ -36,12 +34,10 @@ axios.interceptors.response.use(
                 case 403:
                     console.warn("403: Accès refusé.");
                     alert("Accès refusé. Veuillez vous reconnecter.");
-                //    localStorage.removeItem("token");
-                  //  localStorage.removeItem("user")
-                  //  window.location.href = "/admin";
+
                     break;
                 case 404:
-                    console.warn("🔍 404: Ressource non trouvée.");
+                    console.warn(" 404: Ressource non trouvée.");
                     break;
                 case 500:
                     console.error("500: Erreur serveur interne.");
@@ -52,12 +48,10 @@ axios.interceptors.response.use(
         } else {
             console.error("Aucune réponse du serveur", error);
         }
-
         return Promise.reject(error);
     }
 );
 
-// GET - All Products
 export const getAllProducts = async () => {
     try {
         const response = await axios.get("/product/all");
@@ -68,7 +62,6 @@ export const getAllProducts = async () => {
     }
 };
 
-// GET - Product by ID
 export const getProductById = async (id: number) => {
     try {
         const response = await axios.get(`/product/${id}`);
@@ -79,7 +72,6 @@ export const getProductById = async (id: number) => {
     }
 };
 
-// GET - Products by Collection ID
 export const getProductsByCollection = async (collectionId: number) => {
     try {
         const response = await axios.get(`/product/collection/${collectionId}`);
@@ -90,7 +82,7 @@ export const getProductsByCollection = async (collectionId: number) => {
     }
 };
 
-// GET - Product by Name
+
 export const getProductByName = async (name: string) => {
     try {
         const response = await axios.get(`/product/name/${name}`);
@@ -101,7 +93,6 @@ export const getProductByName = async (name: string) => {
     }
 };
 
-// POST - Add Product
 export const addProduct = async (productData:any ) => {
     try {
         const response = await axios.post("/product/add", productData);
@@ -112,7 +103,6 @@ export const addProduct = async (productData:any ) => {
     }
 };
 
-// PUT - Update Product
 export const updateProduct = async (id:number, productData: any) => {
     try {
         const response = await axios.put(`/product/update/${id}`, productData);
@@ -123,7 +113,6 @@ export const updateProduct = async (id:number, productData: any) => {
     }
 };
 
-// DELETE - Delete Product by ID
 export const deleteProductById = async (id:number) => {
     try {
         const response = await axios.delete(`/product/delete/${id}`);
@@ -134,14 +123,11 @@ export const deleteProductById = async (id:number) => {
     }
 };
 
-
-//Stock service
 export const decreaseStock = async (productId: number, quantity: number) => {
     try {
         const response = await axios.post(`/stock/decrease`, null, {params: {productId, quantity}});
         return response.data;
     } catch (error) {
-        console.error("Erreur lors de la diminution du stock", error);
         return null;
     }
 };
@@ -156,7 +142,6 @@ export const increaseStock = async (productId: number, quantity: number) => {
     }
 };
 
-// POST - create order
 export const createOrderWithProducts = async (orderData: any) => {
     try {
         const token = localStorage.getItem("token");
@@ -165,20 +150,17 @@ export const createOrderWithProducts = async (orderData: any) => {
                 Authorization: `Bearer ${token}`
             }
         });
-        console.log(response.data)
         return response.data;
     } catch (error) {
-        console.error("Erreur lors de la création de la commande avec produits", error);
         return null;
     }
 };
-//get order by id
+
 export const fetchOrderProductById = async (orderId: number, productId: number) => {
     const response = await axios.get(`/${orderId}/${productId}`);
     return response.data;
 };
 
-// Invoice Services
 export const generateInvoice = async (orderId: number) => {
     try {
         const token = localStorage.getItem('token');
@@ -205,7 +187,6 @@ export const getInvoice = async (orderId: number) => {
     }
 };
 
-// POST - subscribe
 export const registerUser = async (userData: any) => {
     try {
         const response = await axios.post("/user/add", userData);
@@ -216,7 +197,6 @@ export const registerUser = async (userData: any) => {
     }
 };
 
-// POST - Login
 export const loginUser = async (loginData: { email: string; password: string }) => {
     try {
         const response = await axios.post("/auth/login", loginData);
@@ -233,13 +213,11 @@ export const loginUser = async (loginData: { email: string; password: string }) 
     }
 };
 
-//POST- Logout
 export const logoutUser = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user"); // all user data
 };
 
-//GET-user
 export const fetchCurrentUser = async () => {
     try {
         const token = localStorage.getItem('token');
@@ -253,7 +231,6 @@ export const fetchCurrentUser = async () => {
     }
 };
 
-// PUT - Update user by id
 export const updateUser = async (id: number, userData: any) => {
     try {
         const response = await axios.put(`/user/update/${id}`, userData);

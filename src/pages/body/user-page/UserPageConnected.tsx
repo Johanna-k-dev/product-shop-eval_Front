@@ -27,7 +27,6 @@ const UserPageConnected: FC<{}> = () => {
     return (
         <section className={"background-image-dashboard"} style={{height: "800px"}}>
             <h2 style={{color: 'white'}}>Tableau de bord</h2>
-
             <div style={{display: 'flex', justifyContent: 'space-between'}}>
                 <div style={{
                     display: 'flex',
@@ -59,7 +58,6 @@ const UserPageConnected: FC<{}> = () => {
             <div style={{display:'flex', justifyContent:"center",alignItems:'center',margin:'50px'}}>
                 <BackToCard/>
             </div>
-
         </section>
     );
 };

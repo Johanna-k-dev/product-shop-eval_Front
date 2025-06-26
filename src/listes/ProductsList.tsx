@@ -13,7 +13,6 @@ const ProductsList: FC<ProductListProps> = ({products}) => {
     async function fetchProducts() {
         try {
             const productData: any = await getAllProducts();
-            console.log('Produits récupérés:', productData);
             setProductList(productData);
         } catch (error) {
             console.error("Erreur lors du chargement des produits :", error);
@@ -21,7 +20,7 @@ const ProductsList: FC<ProductListProps> = ({products}) => {
     }
 
     useEffect(() => {
-        fetchProducts(); // Appelle le chargement au montage
+        fetchProducts().then(r => r);
     }, []);
 
     return (

@@ -17,6 +17,12 @@ interface User {
     role: string;
 }
 
+export interface CartContextType {
+    cartItems: CartItem[];
+    addToCart: (item: CartItem) => void;
+    clearCart: () => void;
+    setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>;
+}
 
 export interface CartItem {
     id: number;

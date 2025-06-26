@@ -2,8 +2,6 @@ import React, {FC, useEffect, useState} from "react";
 import {useNavigate} from "react-router";
 import {Product} from "../../../@type/product";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import Button from "@mui/material/Button";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import {getAllProducts} from "../../../api/api";
@@ -15,7 +13,6 @@ const ProductCard: FC = () => {
     const [products, setProducts] = useState<Product[]>([]);
 
     function handleNavigate(productId: number) {
-        console.log("ID du produit cliqué :", productId);
         navigate(`/product-details/${productId}`);
     }
 
@@ -23,13 +20,11 @@ const ProductCard: FC = () => {
         async function fetchProducts() {
             try {
                 const productData = await getAllProducts()
-                console.log('Produits récupérés:', productData);
-                setProducts(productData); // ✅ Mise à jour de l'état
+                setProducts(productData);
             } catch (error) {
                 console.error("Erreur lors du chargement des produits :", error);
             }
         }
-
         fetchProducts();
     }, []);
     return (
@@ -56,7 +51,6 @@ const ProductCard: FC = () => {
                         <Typography variant="h4">{product.name} {product.price}€</Typography>
                         <img src={product.posterPath} alt={product.name} onClick={() => handleNavigate(product.id)} style={{borderRadius:"20px", margin:"20px"}} />
                     </CardContent>
-
                 </Card>
             ))}
         </Grid2 >

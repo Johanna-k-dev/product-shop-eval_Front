@@ -34,7 +34,6 @@ const StyledTableRow = styled(TableRow)(({theme}) => ({
     '&:nth-of-type(odd)': {
         backgroundColor: `rgba(203, 164, 169, 0.42)`,
     },
-    // hide last border
     '&:last-child td, &:last-child th': {
         border: 0,
     },
@@ -67,6 +66,7 @@ const CartTable: FC<{}> = ({}) => {
         setCartItems(updatedCart);
         localStorage.setItem('cartItems', JSON.stringify(updatedCart));
     };
+
     return (
         <>
             <TableContainer component={Paper}>

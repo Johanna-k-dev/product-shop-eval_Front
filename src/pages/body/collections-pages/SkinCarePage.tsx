@@ -1,7 +1,7 @@
 import {FC} from 'react';
 import CollectionDisplayer from "../../../components/body/collection/CollectionDisplayer";
 
-const SkinCareCare: FC<{}> = ({}) => {
+const SkinCareCarePage: FC<{}> = ({}) => {
     return (
         <>
         <section style={{height:"950px",}}>
@@ -10,11 +10,11 @@ const SkinCareCare: FC<{}> = ({}) => {
                 display: 'flex',
                 justifyContent:'center'
                 }}>
-                <CollectionDisplayer collectionID={1} title="Notre collection SkinCare"/>
+                <CollectionDisplayer collectionID={1} title="Notre collection Soins de la peau"/>
             </div>
         </section>
         </>
     );
 };
 
-export default SkinCareCare;
+export default SkinCareCarePage;

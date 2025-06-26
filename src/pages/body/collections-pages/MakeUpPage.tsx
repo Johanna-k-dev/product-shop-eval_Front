@@ -8,7 +8,7 @@ const MakeUpPage: FC<{}> = ({}) => {
             display: 'flex',
             justifyContent: 'center',
         }}>
-            <CollectionDisplayer collectionID={3} title='Notre collection MakeUp'/>
+            <CollectionDisplayer collectionID={3} title='Notre collection maquillage'/>
         </section>
     );
 };

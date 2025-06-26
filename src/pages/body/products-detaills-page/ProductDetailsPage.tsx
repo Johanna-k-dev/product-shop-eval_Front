@@ -60,8 +60,6 @@ const ProductDetailsPage: FC = () => {
             try {
                 if (!id) throw new Error("Aucun ID trouvé dans l'URL");
                 const productData: any = await getProductById(Number(id));
-                console.log("Produit récupéré :", productData);
-
                 if (productData) {
                     setProduct(productData);
                     setStock(productData.quantity);
@@ -85,7 +83,6 @@ const ProductDetailsPage: FC = () => {
         const oneOfInitialStock = initialStock - 1;
         const twoOfInitialStock = initialStock - 2;
         const threeOfInitialStock = initialStock - 3;
-
         if (stockAfterSelect === 0) {
             setAlertMessage(`Nous en avons ${initialStock} en Stock, alors foncez !🚀`);
         } else if (selectedStock === initialStock) {
@@ -113,7 +110,6 @@ const ProductDetailsPage: FC = () => {
                         src={product.posterPath}
                         alt={product.name}
                         style={{
-
                             margin: "30px",
                             width: "350px",
                             height: "80%",

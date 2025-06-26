@@ -4,14 +4,14 @@ import CollectionDisplayer from "../../../components/body/collection/CollectionD
 
 const HairesCarePage: FC<{}> = ({}) => {
 
-    getProductsByCollection(2).then(products => console.log("Collection 2:", products))
+    getProductsByCollection(2).then(products => products)
     return (
         <section style={{
             height: "950px",
             display: 'flex',
             justifyContent:'center'
         }}>
-            <CollectionDisplayer collectionID={2} title={'Notre collection HairsCare'}/>
+            <CollectionDisplayer collectionID={2} title={'Notre collection Soin des cheveux'}/>
         </section>
     );
 };
