@@ -1,0 +1,9 @@
+.scale-on-hover {
+    display: inline-block;
+    transition: transform 0.3s ease-in-out;
+}
+
+.scale-on-hover:hover {
+    transform: scale(1.1);
+    font-weight: bold;
+}
