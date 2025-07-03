@@ -3,7 +3,8 @@ import {useNavigate} from "react-router-dom";
 
 
 const OrderPage = () => {
-    const navigate=useNavigate()
+    const navigate=useNavigate();
+    const orderId = localStorage.getItem("lastOrderId");
     const handleNavigate = (()=>{
         navigate("/home_page")
 
@@ -11,6 +12,7 @@ const OrderPage = () => {
     return (
        <section className={'order-background'} style={{height:'950px',display:'flex',flexDirection:'column',alignItems:'center',marginTop:20, marginBottom:20}}>
         <h2 style={{color:"white",fontSize:'xx-large'}}>Félicitation votre commande a bien été prise en compte !</h2>
+           <p style={{fontSize:'larger', fontWeight:'bold0', color :'white'}}>Votre numéro de commande est le {orderId} .</p>
         <div style={{color: "white", fontSize: 'x-large',margin:'50px'}}>
         <button className={"scale-on-hover"} onClick={handleNavigate} style={{
             display:'flex',
