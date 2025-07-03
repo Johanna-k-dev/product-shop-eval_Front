@@ -32,7 +32,7 @@ const LoginForm: FC = () => {
             return;
         }
         const result = await loginUser({email, password});
-        if (result) {
+        if (result && localStorage.getItem('token')) {
             login(email)
             alert("Connexion réussie !");
             navigation('/user')
