@@ -1,6 +1,6 @@
 import {FC} from 'react'
 import {logoutUser} from "../../api/api";
-import {useAuth} from "../../contexts/UserConnectionContext";
+import {useAuth} from "../../contexts/AuthContext";
 import {useNavigate} from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
 

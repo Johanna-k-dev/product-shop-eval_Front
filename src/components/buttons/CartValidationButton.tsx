@@ -1,5 +1,5 @@
 import React, {FC, useState} from 'react';
-import {useAuth} from "../../contexts/UserConnectionContext";
+import {useAuth} from "../../contexts/AuthContext";
 import {useNavigate} from "react-router-dom";
 import {useCart} from "../../contexts/AddCartContext";
 import {createOrderWithProducts,decreaseStock} from "../../api/api";

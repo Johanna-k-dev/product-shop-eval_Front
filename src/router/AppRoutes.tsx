@@ -9,10 +9,10 @@ import MakeUpPage from "../pages/body/collections-pages/MakeUpPage";
 import LayoutConnected from "../@layout/LayoutConnected";
 import CartPage from "../pages/body/cart-page/CartPage";
 import UserPageDisconnected from "../pages/body/user-page/UserPageDisconnected";
-import {useAuth} from "../contexts/UserConnectionContext";
 import LayoutDisconnected from "../@layout/LayoutDisconnected";
 import OrderPage from "../pages/body/order-page/OrderPage";
 import UserPageConnected from "../pages/body/user-page/UserPageConnected";
+import {useAuth} from "../contexts/AuthContext";
 
 const AppRoutes: FC = () => {
     const {isAuthenticated} = useAuth();

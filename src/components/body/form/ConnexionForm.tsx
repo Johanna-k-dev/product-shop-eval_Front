@@ -1,7 +1,7 @@
 import React, {FC, useState} from 'react';
 import {loginUser} from '../../../api/api';
 import {useNavigate} from "react-router-dom";
-import {useAuth} from "../../../contexts/UserConnectionContext";
+import {useAuth} from "../../../contexts/AuthContext";
 
 const ConnexionForm: FC = () => {
 
@@ -11,12 +11,22 @@ const ConnexionForm: FC = () => {
     const navigation =useNavigate();
     const {login}= useAuth()
 
+    const isPasswordValid = (pwd: string) => {
+        const minLength = 12;
+        const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).+$/;
+        return pwd.length >= minLength && regex.test(pwd);
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         const newErrors: string[] = [];
 
         if (!email) newErrors.push("L'email est requis.");
-        if (!password) newErrors.push("Le mot de passe est requis.");
+        if (!password) {
+            newErrors.push("Le mot de passe est requis.");
+        } else if (!isPasswordValid(password)) {
+            newErrors.push("Le mot de passe doit contenir au moins 12 caractères, avec au moins une majuscule, une minuscule, un chiffre et un caractère spécial.");
+        }
         if (newErrors.length > 0) {
             setErrors(newErrors);
             return;
@@ -47,16 +57,16 @@ const ConnexionForm: FC = () => {
             margin:'30px'
         }}>
             <legend style={{color: "white", fontWeight: "bolder", fontSize: "xx-large",margin:'10px'}}>Connexion</legend>
-            {errors.length > 0 && (
-                <ul style={{color: "red"}}>
-                    {errors.map((err, index) => <li key={index}>{err}</li>)}
-                </ul>
-            )}
             <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required
                    style={inputStyle}/>
             <input type="password" placeholder="Mot de passe" value={password}
                    onChange={(e) => setPassword(e.target.value)} required style={inputStyle}/>
             <input type="submit" value="Se connecter" className={"scale-on-hover"} style={submitStyle}/>
+            {errors.length > 0 && (
+                <ul style={{color: "red", backgroundColor:'white'}}>
+                    {errors.map((err, index) => <li key={index}>{err}</li>)}
+                </ul>
+            )}
         </form>
     );
 };
