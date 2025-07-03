@@ -4,7 +4,7 @@ import {useAuth} from "../../contexts/AuthContext";
 import {useNavigate} from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
 
-const Logout: FC<{}> = ({}) => {
+const Logout: FC<{}> = () => {
     const navigate=useNavigate();
     const {logout} = useAuth();
 
