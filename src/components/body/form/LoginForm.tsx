@@ -3,7 +3,7 @@ import {loginUser} from '../../../api/api';
 import {useNavigate} from "react-router-dom";
 import {useAuth} from "../../../contexts/AuthContext";
 
-const ConnexionForm: FC = () => {
+const LoginForm: FC = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -94,4 +94,4 @@ const submitStyle = {
     textAlign: "center" as const,
 };
 
-export default ConnexionForm;
+export default LoginForm;

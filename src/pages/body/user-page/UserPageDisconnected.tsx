@@ -1,7 +1,7 @@
 import {FC, useState} from 'react';
 import Switch from '@mui/material/Switch';
 import SubscribeForm from "../../../components/body/form/SubscribeForm";
-import ConnexionForm from "../../../components/body/form/ConnexionForm";
+import LoginForm from "../../../components/body/form/LoginForm";
 
 const UserPageDisconnected: FC<{}> = () => {
     const label = {inputProps: {'aria-label': 'Color switch demo'}};
@@ -25,7 +25,7 @@ const UserPageDisconnected: FC<{}> = () => {
                                 color="secondary" />
                         <p>Inscription</p>
                     </div>
-                    {isInscription ? <SubscribeForm/> : <ConnexionForm/>}
+                    {isInscription ? <SubscribeForm/> : <LoginForm/>}
                 </div>
             </div>
         </section>
