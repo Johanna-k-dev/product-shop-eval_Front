@@ -29,12 +29,14 @@ axios.interceptors.response.use(
                     alert("Votre session a expiré. Veuillez vous reconnecter.");
                     localStorage.removeItem("token");
                     localStorage.removeItem("user")
-                    window.location.href = "/admin";
+                    window.location.href = "/user";
                     break;
                 case 403:
                     console.warn("403: Accès refusé.");
                     alert("Accès refusé. Veuillez vous reconnecter.");
-
+                    localStorage.removeItem("token");
+                    localStorage.removeItem("user");
+                    window.location.href = "/user";
                     break;
                 case 404:
                     console.warn(" 404: Ressource non trouvée.");
